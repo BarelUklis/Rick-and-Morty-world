@@ -30,6 +30,18 @@ export interface IEpisode {
 	url: string, // api path to data about episode
 }
 
+export interface ISelectedCharacter {
+	character: ICharacter,
+	firstAppearance: {
+		episode: string,
+		name: string,
+	},
+	lastAppearance: {
+		episode: string,
+		name: string,
+	},
+}
+
 // API interfaces
 
 export interface IApiInfo {
@@ -48,9 +60,4 @@ export interface IFiltersForCharacters {
 export interface IApiCharactersResponse {
 	info: IApiInfo,
 	results: ICharacter[]
-}
-
-export interface IApiEpisodesResponse {
-	info: IApiInfo,
-	results: IEpisode[]
 }

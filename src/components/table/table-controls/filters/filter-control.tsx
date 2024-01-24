@@ -6,12 +6,13 @@ import { useState } from "react";
 import rootStore from '../../../../store/root-store';
 import FilterMenu from './filter-menu';
 import { observer } from 'mobx-react-lite';
+import { genderType, statusType } from '../../../../store/rick-and-morty-store/rick-and-morty.interface';
 
 const FilterControl = observer(() => {
   const { rickAndMortyStore } = rootStore;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { filters } = rickAndMortyStore;
-  const activeFilter = filters.gender || filters.status || filters.status;
+  const activeFilter: statusType | genderType | '' = filters.gender || filters.status || '';
   return (
     <>
       <Button
