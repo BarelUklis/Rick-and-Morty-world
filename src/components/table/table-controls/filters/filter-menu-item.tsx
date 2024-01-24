@@ -13,7 +13,7 @@ const FilterMenuItem = ({ filter }: { filter: IFilter }) => {
         value={rickAndMortyStore.filters[name as keyof typeof rickAndMortyStore.filters] || ''}
         sx={{ minWidth: 100 }}
         label={label}
-        onChange={(e) => rickAndMortyStore.getFilteredCharacters({ [name]: e.target.value })}
+        onChange={(e) => rickAndMortyStore.handleFilterChange({ [name]: e.target.value })}
       >
         {options.map((option) => (
           <MenuItem key={option} value={option}>{option}</MenuItem>

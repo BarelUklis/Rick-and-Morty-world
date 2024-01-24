@@ -9,7 +9,7 @@ import CharacterModal from "../character-modal/character-modal";
 const TableContainerComponent = () => {
   const { rickAndMortyStore } = rootStore;
   useEffect(() => {
-    rickAndMortyStore.setPage(1);
+    rickAndMortyStore.getCharacters();
   });
   return (
     <Box sx={{ width: '100%' }}>

@@ -48,10 +48,10 @@ class RickAndMortyStore {
 
   setPage(page: number) {
     this.currentPage = page;
-    this.getCharacters();
+    this.handlePageChanged();
   }
 
-  handleSortRequest = (property: string) => {
+  handleSort = (property: string) => {
     const isAsc = this.orderBy === property && this.order === 'asc';
     this.order = isAsc ? 'desc' : 'asc';
     this.orderBy = property;
@@ -85,15 +85,23 @@ class RickAndMortyStore {
 
   async getFilteredCharacters(filters: IFiltersForCharacters) {
     this.filters = { ...this.filters, ...filters };
-    return this.#rickAndMortyApi.getCharactersWithFilters(this.filters)
+    return this.#rickAndMortyApi.getCharactersWithFilters(this.filters, this.currentPage)
       .then((res) => {
         this.characters = res.data?.results as ICharacter[];
-        this.currentPage = 1;
         this.setNumberOfPages(res.data?.info?.pages as number);
       })
       .catch((error) => {
         console.error(error);
       });
+  }
+
+  handlePageChanged() {
+    const activeFilter = Object.values(this.filters).some((value) => value !== "");
+    if (activeFilter) {
+      this.getFilteredCharacters(this.filters);
+      return;
+    }
+    this.getCharacters();
   }
 
   async clearFilters() {
@@ -111,6 +119,11 @@ class RickAndMortyStore {
       .catch((error) => {
         console.error(error);
       });
+  }
+
+  handleFilterChange = (filters: IFiltersForCharacters) => {
+    this.currentPage = 1;
+    this.getFilteredCharacters(filters);
   }
 
   async getEpisodeById(id: string) {

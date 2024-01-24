@@ -30,7 +30,7 @@ const TableHeadComponent = observer(() => {
               <TableSortLabel
                 active={orderBy === headCell.id}
                 direction={orderBy === headCell.id ? order : "asc"}
-                onClick={() => rickAndMortyStore.handleSortRequest(headCell.id)}
+                onClick={() => rickAndMortyStore.handleSort(headCell.id)}
               >
                 {headCell.label}
                 {orderBy === headCell.id ? (
