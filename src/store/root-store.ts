@@ -6,7 +6,7 @@ export interface IRootStore {
 class RootStore implements IRootStore {
   rickAndMortyStore: RickAndMortyStore;
   constructor() {
-    this.rickAndMortyStore = new RickAndMortyStore(this);
+    this.rickAndMortyStore = new RickAndMortyStore();
   }
 }
 

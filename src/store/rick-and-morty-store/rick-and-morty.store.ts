@@ -1,11 +1,9 @@
 import { makeAutoObservable } from "mobx";
-import { IRootStore } from "../root-store";
 import { RickAndMortyApi } from "./rick-and-morty.api";
 import { IApiCharactersResponse, ICharacter, IFiltersForCharacters, ISelectedCharacter } from "./rick-and-morty.interface";
 import { IRestApiResonse } from "../../services/rest-api.interface";
 
 class RickAndMortyStore {
-  #rootStore: IRootStore;
   #rickAndMortyApi: RickAndMortyApi;
 
   numberOfItemsPerPage: number = 20;
@@ -37,9 +35,8 @@ class RickAndMortyStore {
     },
   }
 
-  constructor(rootStore: IRootStore) {
+  constructor() {
     makeAutoObservable(this);
-    this.#rootStore = rootStore;
     this.#rickAndMortyApi = new RickAndMortyApi();
   }
 
@@ -62,7 +59,7 @@ class RickAndMortyStore {
     }
   }
 
-  handleSort = (property: keyof ICharacter) => {
+  handleSort(property: keyof ICharacter) {
     const isAsc = this.orderBy === property && this.order === 'asc';
     this.order = isAsc ? 'desc' : 'asc';
     this.orderBy = property;
@@ -83,13 +80,13 @@ class RickAndMortyStore {
     });
   }
 
-  handleCharacterSuccess = (res: IRestApiResonse<IApiCharactersResponse>) => {
+  handleCharacterSuccess(res: IRestApiResonse<IApiCharactersResponse>) {
     this.notFound = false;
     this.characters = res.data?.results as ICharacter[];
     this.setNumberOfPages(res.data?.info?.pages as number);
   }
 
-  handleCharacterError = () => {
+  handleCharacterError() {
     this.notFound = true;
     this.characters = [];
     this.setNumberOfPages(0);
@@ -115,7 +112,7 @@ class RickAndMortyStore {
   }
 
   handlePageChanged() {
-    const activeFilter = Object.values(this.filters).some((value) => value !== "");
+    const activeFilter = Object.values(this.filters).some((value) => !value);
     if (activeFilter) {
       this.getFilteredCharacters(this.filters);
       return;
@@ -140,7 +137,7 @@ class RickAndMortyStore {
       });
   }
 
-  handleFilterChange = (filters: IFiltersForCharacters) => {
+  handleFilterChange(filters: IFiltersForCharacters) {
     this.currentPage = 1;
     this.getFilteredCharacters(filters);
   }
