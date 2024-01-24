@@ -13,6 +13,8 @@ class RickAndMortyStore {
 
   characters: ICharacter[] = [];
 
+  notFound: boolean = false;
+
   order: "asc" | "desc" = "asc";
   orderBy: string = "id";
   filters: IFiltersForCharacters = {
@@ -75,11 +77,15 @@ class RickAndMortyStore {
   async getCharacters() {
     return this.#rickAndMortyApi.getCharacters(this.currentPage)
       .then((res) => {
+        this.notFound = false;
         this.characters = res.data?.results as ICharacter[];
         this.setNumberOfPages(res.data?.info?.pages as number);
       })
       .catch((error) => {
         console.error(error);
+        this.notFound = true;
+        this.characters = [];
+        this.setNumberOfPages(0);
       });
   }
 
@@ -87,11 +93,15 @@ class RickAndMortyStore {
     this.filters = { ...this.filters, ...filters };
     return this.#rickAndMortyApi.getCharactersWithFilters(this.filters, this.currentPage)
       .then((res) => {
+        this.notFound = false;
         this.characters = res.data?.results as ICharacter[];
         this.setNumberOfPages(res.data?.info?.pages as number);
       })
       .catch((error) => {
         console.error(error);
+        this.notFound = true;
+        this.characters = [];
+        this.setNumberOfPages(0);
       });
   }
 
