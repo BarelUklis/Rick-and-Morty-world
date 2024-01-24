@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import rootStore from "../../store/root-store";
 import TablePaginationComponent from "./table-controls/table-pagination";
 import TableControlBar from "./table-controls/table-control-bar";
+import CharacterModal from "../character-modal/character-modal";
 
 const TableContainerComponent = () => {
   const { rickAndMortyStore } = rootStore;
@@ -17,6 +18,7 @@ const TableContainerComponent = () => {
         <CustomeTable />
         <TablePaginationComponent />
       </Paper>
+      <CharacterModal />
     </Box>
   )
 };

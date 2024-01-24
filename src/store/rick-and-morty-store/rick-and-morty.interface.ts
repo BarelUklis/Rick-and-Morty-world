@@ -25,7 +25,7 @@ export interface IEpisode {
 	id: number,
 	name: string,
 	air_date: string,
-	episdoe: string,
+	episode: string,
 	characters: string[] // api path to character by id
 	url: string, // api path to data about episode
 }

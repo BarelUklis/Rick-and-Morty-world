@@ -21,6 +21,19 @@ class RickAndMortyStore {
     gender: "",
   };
 
+  openCharacterModal: boolean = false;
+  selectedModalCharacter = {
+    character: {} as ICharacter,
+    firstAppearance: {
+      episode: "",
+      name: "",
+    },
+    lastAppearance: {
+      episode: "",
+      name: "",
+    },
+  }
+
   constructor(rootStore: IRootStore) {
     makeAutoObservable(this);
     this.#rootStore = rootStore;
@@ -98,6 +111,50 @@ class RickAndMortyStore {
       .catch((error) => {
         console.error(error);
       });
+  }
+
+  async getEpisodeById(id: string) {
+    return this.#rickAndMortyApi.getEpisodeById(id)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  async handleCharacterModal(character: ICharacter | null) {
+    if (character) {
+      const firstEpisode = character.episode[0].split("/").pop();
+      const lastEpisode = character.episode[character.episode.length - 1].split("/").pop();
+      const firstEpisodeData = await this.getEpisodeById(firstEpisode as string);
+      const lastEpisodeData = await this.getEpisodeById(lastEpisode as string);
+      this.selectedModalCharacter = {
+        character: character,
+        firstAppearance: {
+          episode: firstEpisodeData?.episode as string,
+          name: firstEpisodeData?.name as string,
+        },
+        lastAppearance: {
+          episode: lastEpisodeData?.episode as string,
+          name: lastEpisodeData?.name as string,
+        },
+      }
+      this.openCharacterModal = true;
+      return;
+    }
+    this.openCharacterModal = false;
+    this.selectedModalCharacter = {
+      character: {} as ICharacter,
+      firstAppearance: {
+        episode: "",
+        name: "",
+      },
+      lastAppearance: {
+        episode: "",
+        name: "",
+      },
+    }
   }
 }
 
