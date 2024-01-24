@@ -1,8 +1,8 @@
-import { Bar, BarChart, CartesianGrid, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-const Chart = ({ data }: { data: { y: string, x: number }[] }) => {
+import { CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis, LineChart, Line } from 'recharts';
+const ChartLine = ({ data }: { data: { y: string, x: number }[] }) => {
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <BarChart
+      <LineChart
         width={500}
         height={300}
         data={data}
@@ -18,10 +18,10 @@ const Chart = ({ data }: { data: { y: string, x: number }[] }) => {
         <XAxis dataKey="x" type="number" />
         <YAxis dataKey="y" type="category" />
         <Tooltip />
-        <Bar name='Number of characters' dataKey="x" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
-      </BarChart>
+        <Line name='Number of characters' dataKey="x" fill="#8884d8" activeDot={{ r: 8 }} />
+      </LineChart>
     </ResponsiveContainer>
-  )
+  );
 };
 
-export default Chart;
+export default ChartLine;

@@ -1,11 +1,17 @@
-import { Box } from "@mui/material";
-import Chart from "../../components/chart/chart";
+import { Box, Paper } from "@mui/material";
 import rootStore from "../../store/root-store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
+import ChartControls from "../../components/chart/chart-controls";
+import { ChartType } from "../../components/chart/chart.interface";
+import ChartSwitch from "../../components/chart/chart-switch";
 
 const ChartPage = observer(() => {
   const { rickAndMortyStore } = rootStore;
+  const [chartType, setChartType] = useState<ChartType>("bar");
+  const handleChartTypeChange = (type: ChartType) => {
+    setChartType(type);
+  }
   useEffect(() => {
     rickAndMortyStore.getAllEpisodes();
     return () => {
@@ -13,8 +19,11 @@ const ChartPage = observer(() => {
     }
   }, [rickAndMortyStore]);
   return (
-    <Box sx={{ width: "100vw", height: "100vh" }}>
-      <Chart data={rickAndMortyStore.episodes.map((episode) => ({ y: episode.episode, x: episode.characters.length }))} />
+    <Box sx={{ width: '100vw', height: "100vh" }}>
+      <Paper sx={{ width: '100vw', height: "100vh" }}>
+        <ChartControls handleChartTypeChange={handleChartTypeChange} />
+        <ChartSwitch chartType={chartType} data={rickAndMortyStore.episodes.map((episode) => ({ y: episode.episode, x: episode.characters.length }))} />
+      </Paper>
     </Box>
   );
 });
