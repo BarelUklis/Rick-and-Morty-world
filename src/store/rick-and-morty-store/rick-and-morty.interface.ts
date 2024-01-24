@@ -39,11 +39,14 @@ export interface IApiInfo {
 	prev: string // api path to previous page
 }
 
-export interface IFilteredCharactersApiParams {
-	page: number,
+export interface IFiltersForCharacters {
 	name?: string,
 	status?: statusType,
 	gender?: genderType
+}
+
+export interface IFilteredCharactersApiParams extends IFiltersForCharacters {
+	page: number,
 }
 
 export interface IApiCharactersResponse {
