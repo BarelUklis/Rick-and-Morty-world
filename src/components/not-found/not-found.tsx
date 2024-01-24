@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import rickNotFound from "../../assets/rick-not-found.png"
+import rickNotFound from "../../../public/assets/rick-not-found.png";
 const NotFound = () => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
