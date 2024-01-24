@@ -1,6 +1,6 @@
 import { IPromiseResponse } from "../../services/rest-api.interface";
 import RestApi from "../../services/rest-api.service";
-import { IApiCharactersResponse, IEpisode, IFiltersForCharacters } from "./rick-and-morty.interface";
+import { IApiCharactersResponse, IApiEpisodesResponse, IEpisode, IFiltersForCharacters } from "./rick-and-morty.interface";
 
 export class RickAndMortyApi extends RestApi {
   constructor() {
@@ -21,5 +21,9 @@ export class RickAndMortyApi extends RestApi {
 
   getEpisodeById(id: string): IPromiseResponse<IEpisode> {
     return this.get(`episode/${id}`);
+  }
+
+  getAllEpisodes(page?: string): IPromiseResponse<IApiEpisodesResponse> {
+    return this.get(`episode/?page=${page}`);
   }
 }

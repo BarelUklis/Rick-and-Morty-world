@@ -61,3 +61,8 @@ export interface IApiCharactersResponse {
 	info: IApiInfo,
 	results: ICharacter[]
 }
+
+export interface IApiEpisodesResponse {
+	info: IApiInfo,
+	results: IEpisode[]
+}
