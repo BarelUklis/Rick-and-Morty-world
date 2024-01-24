@@ -1,11 +1,12 @@
-import './App.scss'
-import HomePage from './pages/home'
+import './App.scss';
+import { RouterProvider } from 'react-router-dom';
+import router from './router';
 
 function App() {
   return (
-    <div id='app'>
-      <HomePage />
-    </div>
+    <>
+      <RouterProvider router={router} />
+    </>
   )
 }
 
