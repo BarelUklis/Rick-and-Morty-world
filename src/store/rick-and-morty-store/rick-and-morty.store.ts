@@ -1,7 +1,8 @@
 import { makeAutoObservable } from "mobx";
 import { IRootStore } from "../root-store";
 import { RickAndMortyApi } from "./rick-and-morty.api";
-import { ICharacter, IFiltersForCharacters } from "./rick-and-morty.interface";
+import { IApiCharactersResponse, ICharacter, IFiltersForCharacters } from "./rick-and-morty.interface";
+import { IRestApiResonse } from "../../services/rest-api.interface";
 
 class RickAndMortyStore {
   #rootStore: IRootStore;
@@ -53,6 +54,14 @@ class RickAndMortyStore {
     this.handlePageChanged();
   }
 
+  setModalCharacter(character: ICharacter | null, firstEpisode: { episode: string, name: string }, lastEpisode: { episode: string, name: string }) {
+    this.selectedModalCharacter = {
+      character: character as ICharacter,
+      firstAppearance: firstEpisode,
+      lastAppearance: lastEpisode,
+    }
+  }
+
   handleSort = (property: string) => {
     const isAsc = this.orderBy === property && this.order === 'asc';
     this.order = isAsc ? 'desc' : 'asc';
@@ -74,34 +83,34 @@ class RickAndMortyStore {
     });
   }
 
+  handleCharacterSuccess = (res: IRestApiResonse<IApiCharactersResponse>) => {
+    this.notFound = false;
+    this.characters = res.data?.results as ICharacter[];
+    this.setNumberOfPages(res.data?.info?.pages as number);
+  }
+
+  handleCharacterError = () => {
+    this.notFound = true;
+    this.characters = [];
+    this.setNumberOfPages(0);
+  }
+
   async getCharacters() {
     return this.#rickAndMortyApi.getCharacters(this.currentPage)
-      .then((res) => {
-        this.notFound = false;
-        this.characters = res.data?.results as ICharacter[];
-        this.setNumberOfPages(res.data?.info?.pages as number);
-      })
+      .then((res) => this.handleCharacterSuccess(res))
       .catch((error) => {
         console.error(error);
-        this.notFound = true;
-        this.characters = [];
-        this.setNumberOfPages(0);
+        this.handleCharacterError();
       });
   }
 
   async getFilteredCharacters(filters: IFiltersForCharacters) {
     this.filters = { ...this.filters, ...filters };
     return this.#rickAndMortyApi.getCharactersWithFilters(this.filters, this.currentPage)
-      .then((res) => {
-        this.notFound = false;
-        this.characters = res.data?.results as ICharacter[];
-        this.setNumberOfPages(res.data?.info?.pages as number);
-      })
+      .then((res) => this.handleCharacterSuccess(res))
       .catch((error) => {
         console.error(error);
-        this.notFound = true;
-        this.characters = [];
-        this.setNumberOfPages(0);
+        this.handleCharacterError();
       });
   }
 
@@ -152,32 +161,12 @@ class RickAndMortyStore {
       const lastEpisode = character.episode[character.episode.length - 1].split("/").pop();
       const firstEpisodeData = await this.getEpisodeById(firstEpisode as string);
       const lastEpisodeData = await this.getEpisodeById(lastEpisode as string);
-      this.selectedModalCharacter = {
-        character: character,
-        firstAppearance: {
-          episode: firstEpisodeData?.episode as string,
-          name: firstEpisodeData?.name as string,
-        },
-        lastAppearance: {
-          episode: lastEpisodeData?.episode as string,
-          name: lastEpisodeData?.name as string,
-        },
-      }
+      this.setModalCharacter(character, firstEpisodeData as { episode: string, name: string }, lastEpisodeData as { episode: string, name: string });
       this.openCharacterModal = true;
       return;
     }
     this.openCharacterModal = false;
-    this.selectedModalCharacter = {
-      character: {} as ICharacter,
-      firstAppearance: {
-        episode: "",
-        name: "",
-      },
-      lastAppearance: {
-        episode: "",
-        name: "",
-      },
-    }
+    this.setModalCharacter({} as ICharacter, { episode: "", name: "" }, { episode: "", name: "" });
   }
 }
 
