@@ -2,6 +2,7 @@ import { Box, TextField } from "@mui/material";
 import { useState } from "react";
 import rootStore from "../../../store/root-store";
 import useDebounce from "../../../hooks/useDebounce";
+import FilterControl from "./filters/filter-control";
 
 const TableControlBar = () => {
   const { rickAndMortyStore } = rootStore;
@@ -15,21 +16,19 @@ const TableControlBar = () => {
     setSearchValue(value);
     debouncedSearch(value);
   };
-  
+
   return (
-    <Box sx={{ p: 2, display: 'flex', justifyContent: 'center' }}>
-      <Box sx={{ width: '50%', mr: 2 }}>
-        <TextField
-          fullWidth
-          id="table-search"
-          label="Search"
-          variant="outlined"
-          value={searchValue}
-          onChange={(e) => handleSearchChange(e.target.value)}
-        />
-      </Box>
-      <Box sx={{ width: '50%', mr: 2 }}>
-      </Box>
+    <Box sx={{ p: 2, display: 'flex', flexDirection: 'row', gap: 2 }}>
+      <TextField
+        fullWidth
+        id="table-search"
+        label="Search"
+        variant="outlined"
+        value={searchValue}
+        onChange={(e) => handleSearchChange(e.target.value)}
+        size="small"
+      />
+      <FilterControl />
     </Box>
   )
 };

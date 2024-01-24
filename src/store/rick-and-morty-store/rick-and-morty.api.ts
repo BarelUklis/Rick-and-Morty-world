@@ -12,7 +12,6 @@ export class RickAndMortyApi extends RestApi {
   }
 
   getCharactersWithFilters(filters: IFiltersForCharacters): IPromiseResponse<IApiCharactersResponse> {
-    console.log(filters);
     return this.get(`character/?page=1
     ${filters?.name ? `&name=${filters.name}` : ""}
     ${filters?.status ? `&status=${filters.status}` : ""}

@@ -71,12 +71,29 @@ class RickAndMortyStore {
   }
 
   async getFilteredCharacters(filters: IFiltersForCharacters) {
-    return this.#rickAndMortyApi.getCharactersWithFilters(filters)
+    this.filters = { ...this.filters, ...filters };
+    return this.#rickAndMortyApi.getCharactersWithFilters(this.filters)
       .then((res) => {
-        this.filters = { ...filters };
         this.characters = res.data?.results as ICharacter[];
         this.currentPage = 1;
         this.setNumberOfPages(res.data?.info?.pages as number);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  async clearFilters() {
+    return this.#rickAndMortyApi.getCharacters(this.currentPage)
+      .then((res) => {
+        this.characters = res.data?.results as ICharacter[];
+        this.currentPage = 1;
+        this.setNumberOfPages(res.data?.info?.pages as number);
+        this.filters = {
+          name: "",
+          status: "",
+          gender: "",
+        };
       })
       .catch((error) => {
         console.error(error);

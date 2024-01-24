@@ -1,3 +1,5 @@
+import { genderType, statusType } from "../../store/rick-and-morty-store/rick-and-morty.interface";
+
 export interface HeadCell {
   id: string;
   label: string;
@@ -41,5 +43,24 @@ export const tableHeads = [
     label: "Gender",
     sortable: true,
     filterable: true,
+  }
+];
+
+export interface IFilter {
+  name: string;
+  label: string;
+  options: genderType[] | statusType[];
+}
+
+export const tableFilters: IFilter[] = [
+  {
+    name: "gender",
+    label: "Gender",
+    options: ["Male", "Female", "Genderless", "unknown"],
+  },
+  {
+    name: "status",
+    label: "Status",
+    options: ["Alive", "Dead", "unknown"],
   }
 ];
