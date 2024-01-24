@@ -41,8 +41,8 @@ export interface IApiInfo {
 
 export interface IFiltersForCharacters {
 	name?: string,
-	status?: statusType,
-	gender?: genderType
+	status?: statusType | "",
+	gender?: genderType | "",
 }
 
 export interface IFilteredCharactersApiParams extends IFiltersForCharacters {

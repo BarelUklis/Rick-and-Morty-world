@@ -1,5 +1,5 @@
 import { Box, Pagination } from "@mui/material"
-import rootStore from "../../store/root-store"
+import rootStore from "../../../store/root-store"
 import { observer } from "mobx-react-lite";
 
 const TablePaginationComponent = observer(() => {

@@ -1,5 +1,5 @@
 import { Avatar, TableCell, TableRow } from "@mui/material";
-import { ICharacter } from "../../store/rick-and-morty-store/rick-and-morty.interface";
+import { ICharacter } from "../../../store/rick-and-morty-store/rick-and-morty.interface";
 
 const TableItem = ({ character }: { character: ICharacter }) => (
   <TableRow

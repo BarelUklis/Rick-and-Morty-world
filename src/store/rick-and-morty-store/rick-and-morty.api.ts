@@ -7,14 +7,16 @@ export class RickAndMortyApi extends RestApi {
     super("https://rickandmortyapi.com/api/");
   }
 
-  getCharacters(page: number): IPromiseResponse<IApiCharactersResponse>{
+  getCharacters(page: number): IPromiseResponse<IApiCharactersResponse> {
     return this.get(`character/?page=${page}`);
   }
 
-  getCharactersWithFilters(filters: IFilteredCharactersApiParams): IPromiseResponse<IApiCharactersResponse>{
+  getCharactersWithFilters(filters: IFilteredCharactersApiParams): IPromiseResponse<IApiCharactersResponse> {
+    console.log(filters);
     return this.get(`character/?page=${filters.page}
-    ${filters?.name && `&name=${filters.name}`}
-    ${filters?.status && `&status=${filters.status}`}
-    ${filters?.gender && `&gender=${filters.gender}`}`);
+    ${filters?.name ? `&name=${filters.name}` : ""}
+    ${filters?.status ? `&status=${filters.status}` : ""}
+    ${filters?.gender ? `&gender=${filters.gender}` : ""}
+    `);
   }
 }

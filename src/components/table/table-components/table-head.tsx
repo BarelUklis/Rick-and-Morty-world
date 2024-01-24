@@ -1,7 +1,7 @@
 import { Box, TableCell, TableHead, TableRow, TableSortLabel } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
-import { HeadCell, tableHeads } from "./table.interface";
-import rootStore from "../../store/root-store";
+import { HeadCell, tableHeads } from "../table.interface";
+import rootStore from "../../../store/root-store";
 import { observer } from "mobx-react-lite";
 
 const headCells: HeadCell[] = tableHeads.map((head) => ({

@@ -1,7 +1,7 @@
-import rootStore from "../../store/root-store";
+import rootStore from "../../../store/root-store";
 import { Table, TableBody, TableContainer } from "@mui/material";
 import TableHeadComponent from "./table-head";
-import { ICharacter } from "../../store/rick-and-morty-store/rick-and-morty.interface";
+import { ICharacter } from "../../../store/rick-and-morty-store/rick-and-morty.interface";
 import { observer } from "mobx-react-lite";
 import TableItem from "./table-item";
 
