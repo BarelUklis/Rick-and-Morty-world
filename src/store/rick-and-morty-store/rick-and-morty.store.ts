@@ -15,6 +15,11 @@ class RickAndMortyStore {
 
   order: "asc" | "desc" = "asc";
   orderBy: string = "id";
+  filters: IFiltersForCharacters = {
+    name: "",
+    status: "",
+    gender: "",
+  };
 
   constructor(rootStore: IRootStore) {
     makeAutoObservable(this);
@@ -66,12 +71,11 @@ class RickAndMortyStore {
   }
 
   async getFilteredCharacters(filters: IFiltersForCharacters) {
-    return this.#rickAndMortyApi.getCharactersWithFilters({
-      ...filters,
-      page: this.currentPage,
-    })
+    return this.#rickAndMortyApi.getCharactersWithFilters(filters)
       .then((res) => {
+        this.filters = { ...filters };
         this.characters = res.data?.results as ICharacter[];
+        this.currentPage = 1;
         this.setNumberOfPages(res.data?.info?.pages as number);
       })
       .catch((error) => {

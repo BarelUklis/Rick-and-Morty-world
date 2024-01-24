@@ -45,10 +45,6 @@ export interface IFiltersForCharacters {
 	gender?: genderType | "",
 }
 
-export interface IFilteredCharactersApiParams extends IFiltersForCharacters {
-	page: number,
-}
-
 export interface IApiCharactersResponse {
 	info: IApiInfo,
 	results: ICharacter[]

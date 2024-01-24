@@ -3,6 +3,7 @@ import CustomeTable from "./table-components/table-body";
 import { useEffect } from "react";
 import rootStore from "../../store/root-store";
 import TablePaginationComponent from "./table-controls/table-pagination";
+import TableControlBar from "./table-controls/table-control-bar";
 
 const TableContainerComponent = () => {
   const { rickAndMortyStore } = rootStore;
@@ -12,6 +13,7 @@ const TableContainerComponent = () => {
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
+        <TableControlBar />
         <CustomeTable />
         <TablePaginationComponent />
       </Paper>
