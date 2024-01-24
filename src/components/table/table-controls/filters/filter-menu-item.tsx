@@ -1,9 +1,8 @@
 import { InputLabel, MenuItem, Select } from "@mui/material"
 import rootStore from '../../../../store/root-store';
 import { IFilter } from "../../table.interface";
-import { observer } from "mobx-react-lite";
 
-const FilterMenuItem = observer(({ filter }: { filter: IFilter }) => {
+const FilterMenuItem = ({ filter }: { filter: IFilter }) => {
   const { rickAndMortyStore } = rootStore;
   const { name, label, options } = filter;
   return (
@@ -22,6 +21,6 @@ const FilterMenuItem = observer(({ filter }: { filter: IFilter }) => {
       </Select>
     </>
   )
-});
+};
 
 export default FilterMenuItem;
