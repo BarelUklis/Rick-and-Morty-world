@@ -2,10 +2,11 @@ import { Box, Divider, Modal, Typography } from "@mui/material";
 import rootStore from "../../store/root-store";
 import { observer } from "mobx-react-lite";
 import { modalImgStyle, modalInnerStyle, modalStyle } from "./modal-style";
+import { ISelectedCharacter } from "../../store/rick-and-morty-store/rick-and-morty.interface";
 
 const CharacterModal = observer(() => {
   const { rickAndMortyStore } = rootStore;
-  const selectedCharacter = rickAndMortyStore.selectedModalCharacter;
+  const selectedCharacter: ISelectedCharacter = rickAndMortyStore.selectedModalCharacter;
   const { character, firstAppearance, lastAppearance } = selectedCharacter;
   return (
     <Modal

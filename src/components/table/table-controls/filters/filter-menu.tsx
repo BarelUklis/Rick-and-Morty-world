@@ -2,7 +2,12 @@ import { Box, Menu } from "@mui/material"
 import FilterMenuItem from "./filter-menu-item"
 import { tableFilters } from "../../table.interface"
 
-const FilterMenu = ({ anchorEl, setAnchorEl }: { anchorEl: null | HTMLElement, setAnchorEl: (value: null | HTMLElement) => void }) => {
+interface IFilterProps {
+  anchorEl: null | HTMLElement;
+  setAnchorEl: (value: null | HTMLElement) => void;
+}
+
+const FilterMenu = ({ anchorEl, setAnchorEl }: IFilterProps) => {
   return (
     <Menu
       id="filter-menu"
