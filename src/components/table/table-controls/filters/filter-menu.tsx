@@ -16,7 +16,11 @@ const FilterMenu = ({ anchorEl, setAnchorEl }: IFilterProps) => {
       onClose={() => setAnchorEl(null)}
       sx={{
         '& .MuiMenu-paper': {
-          width: "50%",
+          width: "30%",
+          minWidth: "250px",
+          '@media (max-width: 768px)': {
+            width: "100%"
+          }
         }
       }}
     >
