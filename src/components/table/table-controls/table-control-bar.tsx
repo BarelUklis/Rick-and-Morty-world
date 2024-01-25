@@ -5,13 +5,14 @@ import useDebounce from "../../../hooks/useDebounce";
 import FilterControl from "./filters/filter-control";
 import TableViewMode from "./table-view-mode";
 import './control-bar.scss';
+import { Cancel } from "@mui/icons-material";
 
 const TableControlBar = () => {
   const { rickAndMortyStore } = rootStore;
   const [searchValue, setSearchValue] = useState('');
 
   const debouncedSearch = useDebounce((value: string) => {
-    rickAndMortyStore.getFilteredCharacters({ name: value });
+    rickAndMortyStore.handleFilterChange({ name: value });
   }, 500);
 
   const handleSearchChange = (value: string) => {
@@ -31,6 +32,15 @@ const TableControlBar = () => {
           value={searchValue}
           onChange={(e) => handleSearchChange(e.target.value)}
           size="small"
+          InputProps={{
+            endAdornment: (searchValue &&
+              <Cancel
+                sx={{ color: 'action.active', cursor: 'pointer' }}
+                onClick={() => handleSearchChange('')}
+              />
+            )
+          }}
+
         />
       </Box>
       <FilterControl />

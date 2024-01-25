@@ -128,16 +128,16 @@ class RickAndMortyStore {
   }
 
   async clearFilters() {
-    return this.#rickAndMortyApi.getCharacters(this.currentPage)
+    this.filters = {
+      name: this.filters.name,
+      status: "",
+      gender: "",
+    };
+    this.currentPage = 1;
+    return this.#rickAndMortyApi.getCharactersWithFilters(this.filters, this.currentPage)
       .then((res) => {
         this.characters = res.data?.results as ICharacter[];
-        this.currentPage = 1;
         this.setNumberOfPages(res.data?.info?.pages as number);
-        this.filters = {
-          name: "",
-          status: "",
-          gender: "",
-        };
       })
       .catch((error) => {
         console.error(error);
