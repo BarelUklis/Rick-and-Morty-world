@@ -19,8 +19,8 @@ const ChartPage = observer(() => {
     }
   }, [rickAndMortyStore]);
   return (
-    <Box sx={{ width: '100vw', height: "100vh" }}>
-      <Paper sx={{ width: '100vw', height: "100vh" }}>
+    <Box>
+      <Paper sx={{ width: '100%', height: "100vh" }}>
         <ChartControls handleChartTypeChange={handleChartTypeChange} />
         <ChartSwitch chartType={chartType} data={rickAndMortyStore.episodes.map((episode) => ({ y: episode.episode, x: episode.characters.length }))} />
       </Paper>
