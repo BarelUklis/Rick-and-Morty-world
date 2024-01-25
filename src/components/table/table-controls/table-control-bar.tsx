@@ -3,6 +3,7 @@ import { useState } from "react";
 import rootStore from "../../../store/root-store";
 import useDebounce from "../../../hooks/useDebounce";
 import FilterControl from "./filters/filter-control";
+import TableViewMode from "./table-view-mode";
 
 const TableControlBar = () => {
   const { rickAndMortyStore } = rootStore;
@@ -19,6 +20,7 @@ const TableControlBar = () => {
 
   return (
     <Box sx={{ p: 2, display: 'flex', flexDirection: 'row', gap: 2 }}>
+      <TableViewMode />
       <TextField
         fullWidth
         id="table-search"

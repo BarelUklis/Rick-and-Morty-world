@@ -14,6 +14,7 @@ class RickAndMortyStore {
   episodes: IEpisode[] = [];
 
   notFound: boolean = false;
+  viewMode: "table" | "card" = "table";
 
   order: "asc" | "desc" = "asc";
   orderBy: string = "id";
@@ -50,6 +51,11 @@ class RickAndMortyStore {
   setPage(page: number) {
     this.currentPage = page;
     this.handlePageChanged();
+  }
+
+  setViewMode(viewMode: "table" | "card") {
+    if (!viewMode) return;
+    this.viewMode = viewMode;
   }
 
   setModalCharacter(character: ISelectedCharacter) {
