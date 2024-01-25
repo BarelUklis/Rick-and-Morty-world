@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { RickAndMortyApi } from "./rick-and-morty.api";
-import { IApiCharactersResponse, ICharacter, IFiltersForCharacters, ISelectedCharacter } from "./rick-and-morty.interface";
+import { IApiCharactersResponse, ICharacter, IEpisode, IFiltersForCharacters, ISelectedCharacter } from "./rick-and-morty.interface";
 import { IRestApiResonse } from "../../services/rest-api.interface";
 
 class RickAndMortyStore {
@@ -11,8 +11,10 @@ class RickAndMortyStore {
   currentPage: number = 1;
 
   characters: ICharacter[] = [];
+  episodes: IEpisode[] = [];
 
   notFound: boolean = false;
+  viewMode: "table" | "card" = "table";
 
   order: "asc" | "desc" = "asc";
   orderBy: string = "id";
@@ -49,6 +51,11 @@ class RickAndMortyStore {
   setPage(page: number) {
     this.currentPage = page;
     this.handlePageChanged();
+  }
+
+  setViewMode(viewMode: "table" | "card") {
+    if (!viewMode) return;
+    this.viewMode = viewMode;
   }
 
   setModalCharacter(character: ISelectedCharacter) {
@@ -185,6 +192,23 @@ class RickAndMortyStore {
         name: "",
       },
     });
+  }
+
+  async getAllEpisodes(page?: string) {
+    return this.#rickAndMortyApi.getAllEpisodes(page)
+      .then((res) => {
+        this.episodes = [...this.episodes, ...res.data?.results as IEpisode[]];
+        if (res.data?.info?.next) {
+          this.getAllEpisodes(res.data?.info?.next.split("=").pop());
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  clearEpisodes() {
+    this.episodes = [];
   }
 }
 
