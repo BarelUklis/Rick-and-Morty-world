@@ -9,7 +9,7 @@ const TableItem = ({ character }: { character: ICharacter }) => {
       hover
       tabIndex={-1}
       key={character.id}
-      sx={{ cursor: 'pointer' }}
+      sx={{ cursor: 'pointer', '&:nth-of-type(odd)': { backgroundColor: '#f9f9f9' } }}
       onClick={() => rickAndMortyStore.handleCharacterModal(character)}
     >
       <TableCell align="left">

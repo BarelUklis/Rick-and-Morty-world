@@ -4,6 +4,7 @@ import rootStore from "../../../store/root-store";
 import useDebounce from "../../../hooks/useDebounce";
 import FilterControl from "./filters/filter-control";
 import TableViewMode from "./table-view-mode";
+import './control-bar.scss';
 
 const TableControlBar = () => {
   const { rickAndMortyStore } = rootStore;
@@ -19,19 +20,21 @@ const TableControlBar = () => {
   };
 
   return (
-    <Box sx={{ p: 2, display: 'flex', flexDirection: 'row', gap: 2 }}>
-      <TableViewMode />
-      <TextField
-        fullWidth
-        id="table-search"
-        label="Search"
-        variant="outlined"
-        value={searchValue}
-        onChange={(e) => handleSearchChange(e.target.value)}
-        size="small"
-      />
+    <div className="control-container">
+      <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1, width: '100%' }}>
+        <TableViewMode />
+        <TextField
+          sx={{ width: '350px' }}
+          id="table-search"
+          label="Search"
+          variant="outlined"
+          value={searchValue}
+          onChange={(e) => handleSearchChange(e.target.value)}
+          size="small"
+        />
+      </Box>
       <FilterControl />
-    </Box>
+    </div>
   )
 };
 

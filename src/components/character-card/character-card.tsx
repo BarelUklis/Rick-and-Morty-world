@@ -12,6 +12,7 @@ const CharacterCard = ({ character }: { character: ICharacter }) => {
         flexDirection: 'column',
         gap: 1,
         cursor: 'pointer',
+        boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.25)',
         transition: 'all 0.2s ease-in-out',
         '&:hover': {
           transform: 'scale(1.01)'
@@ -19,7 +20,7 @@ const CharacterCard = ({ character }: { character: ICharacter }) => {
       }}
       onClick={() => rickAndMortyStore.handleCharacterModal(character)}
     >
-      <img src={character.image} alt={character.name} />
+      <img src={character.image} alt={character.name} style={{ width: 250, height: 250 }} />
       <Box>
         <Typography variant="h5" align="center" sx={{ height: 60, display: "flex", flexDirection: "column", justifyContent: "center" }}>{character.name}</Typography>
         <Divider sx={{ width: "90%", margin: "auto", mt: 1 }} />

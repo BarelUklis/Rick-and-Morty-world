@@ -1,11 +1,10 @@
-import { Box, Button, ButtonGroup, InputLabel } from "@mui/material";
+import { Box, Button, ButtonGroup } from "@mui/material";
 import { ChartType, chartTypes } from "./chart.interface";
 
 const ChartControls = ({ handleChartTypeChange }: { handleChartTypeChange: (type: ChartType) => void }) => {
   return (
-    <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', gap: 2 }}>
-      <InputLabel id="chart-type-label">Chart Type</InputLabel>
-      <ButtonGroup size="small" aria-label="chart-type">
+    <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: "center" }}>
+      <ButtonGroup size="medium" aria-label="chart-type" sx={{ p: 1 }}>
         {chartTypes.map((chartType) => (
           <Button key={chartType} onClick={() => handleChartTypeChange(chartType)}>{chartType}</Button>
         ))}

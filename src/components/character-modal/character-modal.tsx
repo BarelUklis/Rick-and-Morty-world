@@ -18,7 +18,7 @@ const CharacterModal = observer(() => {
     >
       <Box sx={modalInnerStyle}>
         <img src={character.image} alt={character.name} style={modalImgStyle} />
-        <Box sx={{ display: 'flex', flexDirection: 'column', p: 1, gap: 1 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', p: 2, gap: 1 }}>
           <Box>
             <Typography variant="h4">{character.name}</Typography>
           </Box>

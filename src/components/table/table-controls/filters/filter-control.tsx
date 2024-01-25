@@ -1,6 +1,6 @@
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
-import { Button } from "@mui/material"
+import { Box, Button } from "@mui/material"
 import { useState } from "react";
 
 import rootStore from '../../../../store/root-store';
@@ -14,7 +14,7 @@ const FilterControl = observer(() => {
   const { filters } = rickAndMortyStore;
   const activeFilter: statusType | genderType | '' = filters.gender || filters.status || '';
   return (
-    <>
+    <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1 }}>
       <Button
         variant="outlined"
         aria-controls="filter-menu"
@@ -25,7 +25,7 @@ const FilterControl = observer(() => {
       >
         Filters
       </Button>
-      {activeFilter &&
+      {activeFilter && (
         <Button
           variant="outlined"
           aria-controls="filter-menu"
@@ -34,9 +34,9 @@ const FilterControl = observer(() => {
         >
           <FilterAltOffIcon />
         </Button>
-      }
+      )}
       <FilterMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
-    </>
+    </Box >
   )
 });
 
